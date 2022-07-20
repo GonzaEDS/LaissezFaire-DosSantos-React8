@@ -4,6 +4,12 @@
     flex-wrap: wrap;
     padding: 2rem;
     justify-content: center;
+    a {
+        all:unset;
+        display: flex;
+        height: auto;
+
+    }
 }
 .product-card {
     cursor: pointer;
@@ -79,4 +85,6 @@ button.buy-btn {
     text-shadow: 0px 0px 5px #3d3f6a;
     text-shadow: -1px -1px 0 #915e00, 1px -1px 0 #915e00, -1px 1px 0 #915e00, 1px 1px 0 #915e00;
 }
+
+
 

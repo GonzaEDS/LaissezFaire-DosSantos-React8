@@ -1,43 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import ItemList from './ItemList';
+import ItemList from './ItemList'
+import Loader from './Loader'
+import { useParams } from 'react-router-dom'
 
 
 function ItemListContainer(props) {
-    // let itemsDatabase = []
-    const [items, setItems] = useState([]);
    
+    // let itemsDatabase = []
+    const { categoryId } = useParams(),
+    [items, setItems] = useState([]),
+    [loading, setLoading] = useState(false),
+    categories = ["electronics","jewelery","men's clothing","women's clothing"],
+    selectedCategory = categories[categoryId - 1]
+    
 
     useEffect(
         () => {
+        setLoading(true)
         let promiseItems = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(
-    
-                    fetch('https://fakestoreapi.com/products')
-                    .then(res => res.json())
-                    // .then(json => itemsDatabase = [...json])
 
-                )
-                   
-            }, 1000);
+            resolve(
+
+                fetch('https://fakestoreapi.com/products')
+                .then(res => res.json())
+            )
+                
         })
 
         promiseItems.then(
             (respuesta) => {
-                setItems(respuesta)
+                categoryId
+                ?setItems(respuesta.filter(product => product.category == selectedCategory))
+                :setItems((respuesta))
+                
+                setLoading(false)
             }
         )
     
-    
-    
-    }, [])
+    }, [useParams()])
+
+    if(loading) {
+        return (
+            <>
+                <div className='detail-container' style={{height: "100vh"}}>
+                    <Loader/> 
+                </div>   
+                
+            </>   
+        )
+                
+    }
     
 
-    // Function to collect data
   return (
     <>
 
-    <div className='greeting'>{props.greeting}</div>
+    <div className='greeting'>Welcome to LaissezFaire.com </div>
     <div className='cards-container'>
         <ItemList data={items}/>
     </div>

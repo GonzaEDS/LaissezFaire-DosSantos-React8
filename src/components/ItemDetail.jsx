@@ -3,12 +3,11 @@ import ItemCount from "./ItemCount";
 
 
 function ProductDetail({title, price, image, description}){
-
     return (
         <div className="product-detail">
             
             <div className="detail-image">
-                <img src={image} alt={ `${title} photo`} />
+                <img src={image} alt={ `${title}`} />
             </div>
             <div className="detail-body">
                 <div className="detail-title">

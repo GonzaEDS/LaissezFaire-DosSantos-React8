@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import ItemDetail from './ItemDetail';
 import Loader from './Loader';
+import { useParams } from 'react-router-dom';
 
 function ItemDetailContainer(){
+    
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true)
-    const [random, setRandom] = useState(0)
+    const params = useParams()
+    const itemIndex = Number(params.id) -1
 
     useEffect(() => {
 
         setLoading(true)
-        setRandom(Math.floor(Math.random() * 20))
 
         let promiseItems = new Promise((resolve, reject) => {
                 resolve(
@@ -45,7 +47,7 @@ function ItemDetailContainer(){
     return (
         <>
             <div className='detail-container'>
-                <ItemDetail data={items[random]}/>
+                <ItemDetail data={items[itemIndex]}/>
                 
             </div>   
         </>           

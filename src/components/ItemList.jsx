@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 function ProductCard({title, price, image}){
 
@@ -37,7 +38,11 @@ function ItemList(props) {
 
         { productsArray.map(product =>{
 
-            return <ProductCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+            return <Link key={product.id} to={`/product/${product.id}`}>
+                <ProductCard  title={product.title} image={product.image} price={product.price}/>
+            </Link>
+            
+            
             
             }) 
         }
