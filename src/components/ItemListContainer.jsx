@@ -3,65 +3,54 @@ import ItemList from './ItemList'
 import Loader from './Loader'
 import { useParams } from 'react-router-dom'
 
-
 function ItemListContainer(props) {
-   
-    // let itemsDatabase = []
-    const { categoryId } = useParams(),
+  const { categoryId } = useParams(),
     [items, setItems] = useState([]),
     [loading, setLoading] = useState(false),
-    categories = ["electronics","jewelery","men's clothing","women's clothing"],
+    categories = [
+      'electronics',
+      'jewelery',
+      "men's clothing",
+      "women's clothing"
+    ],
     selectedCategory = categories[categoryId - 1]
-    
 
-    useEffect(
-        () => {
-        setLoading(true)
-        let promiseItems = new Promise((resolve, reject) => {
+  useEffect(() => {
+    setLoading(true)
+    let promiseItems = new Promise((resolve, reject) => {
+      resolve(
+        fetch('https://fakestoreapi.com/products').then(res => res.json())
+      )
+    })
 
-            resolve(
+    promiseItems.then(respuesta => {
+      categoryId
+        ? setItems(
+            respuesta.filter(product => product.category == selectedCategory)
+          )
+        : setItems(respuesta)
 
-                fetch('https://fakestoreapi.com/products')
-                .then(res => res.json())
-            )
-                
-        })
+      setLoading(false)
+    })
+  }, [useParams()])
 
-        promiseItems.then(
-            (respuesta) => {
-                categoryId
-                ?setItems(respuesta.filter(product => product.category == selectedCategory))
-                :setItems((respuesta))
-                
-                setLoading(false)
-            }
-        )
-    
-    }, [useParams()])
-
-    if(loading) {
-        return (
-            <>
-                <div className='detail-container' style={{height: "100vh"}}>
-                    <Loader/> 
-                </div>   
-                
-            </>   
-        )
-                
-    }
-    
+  if (loading) {
+    return (
+      <>
+        <div className="detail-container" style={{ height: '100vh' }}>
+          <Loader />
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
-
-    <div className='greeting'>Welcome to LaissezFaire.com </div>
-    <div className='cards-container'>
-        <ItemList data={items}/>
-    </div>
-    
+      <div className="greeting">Welcome to LaissezFaire.com </div>
+      <div className="cards-container">
+        <ItemList data={items} />
+      </div>
     </>
-    
   )
 }
 

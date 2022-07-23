@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 function CountButton(props){
@@ -43,7 +42,7 @@ function ItemCount(props) {
             <CountButton  callback={() => handleCount('increment', props.initial, props.stock, props.unit)}><AiOutlinePlus /> </CountButton>
           </div>
             <div className='add-to-cart'>
-            <button>
+            <button onClick={() => props.onAdd(count)}>
               <span className="button_top">Add To Cart</span>
             </button>
             </div>

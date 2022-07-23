@@ -2,10 +2,10 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Header from './components/Header'
-// import ItemListContainer from './components/ItemListContainer'
 import ItemDetailContainer from './components/ItemDetailContainer'
 import ItemListContainer from './components/ItemListContainer'
 import CategoriesContainer from './components/CategoriesContainer'
+import CartPage from './components/CartPage'
 
 function App() {
   return (
@@ -14,9 +14,14 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<ItemListContainer />} />
+          <Route
+            path="/LaissezFaire-DosSantos-React8/"
+            element={<ItemListContainer />}
+          />
           <Route path="/category/:categoryId" element={<ItemListContainer />} />
           <Route path="/product/:id" element={<ItemDetailContainer />} />
           <Route path="/categories" element={<CategoriesContainer />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route
             path="*"
             element={
